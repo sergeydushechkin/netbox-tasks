@@ -1,0 +1,28 @@
+{
+  "name": "netbox_1",
+  "version": "1.0.0",
+  "description": "Netbox test 1",
+  "scripts": {
+    "stylelint": "stylelint \"src/sass/**/*.scss\" --syntax scss",
+    "build": "gulp build",
+    "start": "gulp start"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "10.0.1",
+    "browser-sync": "2.26.12",
+    "del": "6.0.0",
+    "gulp": "4.0.2",
+    "gulp-postcss": "9.0.0",
+    "gulp-rename": "2.0.0",
+    "gulp-sass": "4.1.0",
+    "gulp-sourcemaps": "2.6.5",
+    "postcss": "8.1.1",
+    "stylelint": "13.7.2",
+    "stylelint-config-htmlacademy": "0.1.4"
+  }
+}

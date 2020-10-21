@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: center;
+
+  min-width: 320px;
+  height: 100vh;
+}
+
+@media (min-width: $desktop-width) {
+  .container {
+    background-color: #f5f5f5;
+  }
+}

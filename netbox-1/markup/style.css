@@ -1,0 +1,108 @@
+@font-face {
+  font-family: "Open Sans";
+  src: local("Open Sans Regular"), local("OpenSans-Regular"), url("./fonts/opensans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap; }
+
+/*font-family: "Open Sans", sans-serif;*/
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden,
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden; }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: #ffffff; }
+
+@media (min-width: 376px) {
+  body {
+    background-color: #f5f5f5; } }
+
+.container {
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  height: 100vh; }
+
+@media (min-width: 376px) {
+  .container {
+    background-color: #f5f5f5; } }
+
+.main {
+  max-width: 276px;
+  height: 460px;
+  margin: auto auto;
+  padding: 0;
+  padding-top: 48px;
+  padding-right: 15px;
+  padding-left: 30px;
+  padding-bottom: 41px;
+  background-image: url("../img/iphone_mask.svg");
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.main__header {
+  margin: 0;
+  margin-bottom: 14px; }
+
+@media (min-width: 376px) {
+  .main {
+    max-width: 834px;
+    min-width: 360px;
+    height: 539px;
+    margin: auto 30px;
+    padding-top: 135px;
+    padding-right: 48px;
+    padding-left: 96px;
+    padding-bottom: 58px;
+    background-image: url("../img/pc_mask.svg");
+    background-size: 100% 100%; } }
+
+.article {
+  height: 100%;
+  padding-right: 35px;
+  overflow-y: scroll;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  color: white; }
+  .article::-webkit-scrollbar {
+    width: 5px; }
+  .article::-webkit-scrollbar-thumb {
+    background-color: #ffffff; }
+  .article::-webkit-scrollbar-track {
+    background: #464646; }
+
+.article__paragraph {
+  margin: 0;
+  margin-bottom: 16px; }
+
+@media (min-width: 376px) {
+  .article {
+    font-size: 24px;
+    line-height: 40px;
+    padding-right: 60px; }
+  .article__paragraph {
+    margin-bottom: 24px; } }
+
+/*# sourceMappingURL=style.css.map */
