@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import data from "./mock/data.js";
+import JsonData from "./mock/data.js";
 import App from "./components/app/app.jsx";
+
+const data = JSON.parse(JsonData);
+console.log(data);
 
 ReactDOM.render(
     <App data={data}/>,
