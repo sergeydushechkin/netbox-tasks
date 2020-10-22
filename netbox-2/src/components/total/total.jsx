@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const Total = (props) => {
   const {value} = props;
   return (
-    <p className="total">Total: {value}</p>
+    <p className="additions__total">Total: {value}</p>
   );
 };
 

@@ -5,6 +5,7 @@ body {
 }
 
 .table {
+  width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
   background-color: #f2f2f2;
@@ -12,6 +13,30 @@ body {
 
 .table__header {
   position: relative;
+}
+
+.table__header:nth-child(1) {
+  width: 5%;
+}
+
+.table__header:nth-child(2) {
+  width: 30%;
+}
+
+.table__header:nth-child(3) {
+  width: 5%;
+}
+
+.table__header:nth-child(4) {
+  width: 15%;
+}
+
+.table__header:nth-child(5) {
+  width: 25%;
+}
+
+.table__header:nth-child(6) {
+  width: 20%;
 }
 
 .table__header::after {
@@ -44,7 +69,17 @@ body {
   padding: 2px 0;
 }
 
-.total {
+.additions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.additions__total {
   font-size: 16px;
+  font-weight: bold;
+}
+
+.additions__add-button {
   font-weight: bold;
 }

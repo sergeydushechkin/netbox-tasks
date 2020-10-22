@@ -11,7 +11,7 @@ const TableHeader = (props) => {
       <th className="table__header"><a href="">age</a></th>
       <th className="table__header"><a href="">phone</a></th>
       <th className="table__header"><a href="">email</a></th>
-      <th className="table__header"><a href="">actions</a></th>
+      <th className="table__header">actions</th>
     </tr>
   );
 };
