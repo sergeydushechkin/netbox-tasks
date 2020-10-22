@@ -1,21 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
+
+import {getTableData} from "../../reducer/selectors.js";
+
 import Table from "../table/table.jsx";
 import Additions from "../additions/additions.jsx";
 
-const App = (props) => {
-  const {data} = props;
+const App = () => {
+  const data = useSelector((state) => getTableData(state));
 
   return (
     <React.Fragment>
-    <Table tableData={data}/>
+      <Table tableData={data}/>
       <Additions tableData={data} />
     </React.Fragment>
   );
-};
-
-App.propTypes = {
-  data: PropTypes.array.isRequired,
 };
 
 export default App;

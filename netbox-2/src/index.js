@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
 
-import JsonData from "./mock/data.js";
+import {reducer} from "./reducer/reducer.js";
 import App from "./components/app/app.jsx";
 
-const data = JSON.parse(JsonData);
-console.log(data);
+const store = createStore(reducer, window[`__REDUX_DEVTOOLS_EXTENSION__`] ? window[`__REDUX_DEVTOOLS_EXTENSION__`]() : (f) => f);
 
 ReactDOM.render(
-    <App data={data}/>,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.querySelector(`#root`)
 );
