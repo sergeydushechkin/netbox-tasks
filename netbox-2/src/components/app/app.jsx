@@ -6,13 +6,12 @@ const App = (props) => {
   const {data} = props;
 
   return (
-    <Table data={data}/>
+    <Table tableData={data}/>
   );
 };
 
-
 App.propTypes = {
-  data: PropTypes.shape.any,
+  data: PropTypes.array.isRequired,
 };
 
 export default App;

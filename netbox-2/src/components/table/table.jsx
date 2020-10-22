@@ -1,58 +1,53 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import TableHeader from "../table-header/table-header.jsx";
+import TableRow from "../table-row/table-row.jsx";
+import TableActiveRow from "../table-active-row/table-active-row.jsx";
+import Total from "../total/total.jsx";
+
 const Table = (props) => {
-  const {data} = props;
+  const {tableData} = props;
+  const [activeRowId, setActiveRowId] = React.useState(2);
+
+  const handleSave = (formData) => {
+    console.log(formData);
+  };
+
+  const handleCancel = () => {
+    setActiveRowId(null);
+  };
+
+  const handleEdit = (id) => {
+    setActiveRowId(id);
+  };
+
+  const handleDelete = (id) => {
+    console.log(`${id} deleted`);
+  };
 
   return (
     <React.Fragment>
       <table className="table">
-        <tr className="table__row">
-          <th className="table__header">id</th>
-          <th className="table__header">name</th>
-          <th className="table__header">age</th>
-          <th className="table__header">phone</th>
-          <th className="table__header">email</th>
-          <th className="table__header">actions</th>
-        </tr>
-        <tr className="table__row">
-          <td className="table__cell">1</td>
-          <td className="table__cell">Ivan</td>
-          <td className="table__cell">25</td>
-          <td className="table__cell">123123</td>
-          <td className="table__cell">ivan@mmmail.com</td>
-          <td className="table__cell buttons">
-            <button className="buttons__edit">Редактировать</button>
-            <button className="buttons__delete">Удалить</button>
-          </td>
-        </tr>
-        <tr className="table__row table__row--active">
-          <td className="table__cell">2</td>
-          <td className="table__cell">
-            <input className="table_input" type="text" name="name" required size="15" value="Maria" />
-          </td>
-          <td className="table__cell">
-            <input className="table_input" type="text" name="age" required size="5" value="21" />
-          </td>
-          <td className="table__cell">
-            <input className="table_input" type="tel" name="telephone" required size="10" value="423434234" />
-          </td>
-          <td className="table__cell">
-            <input className="table_input" type="email" name="telephone" required size="15" value="maria@mmmail.com" />
-          </td>
-          <td className="table__cell buttons">
-            <button className="buttons__save">Сохранить</button>
-            <button className="buttons__delete">Удалить</button>
-          </td>
-        </tr>
+        <tbody>
+          <TableHeader />
+          {
+            tableData.map((item) => {
+              const id = item[0].value;
+              return id === activeRowId
+                ? <TableActiveRow key={id} rowData={item} onCancelClick={handleCancel} onSave={handleSave}/>
+                : <TableRow key={id} rowData={item} onEditClick={handleEdit} onDeleteClick={handleDelete}/>;
+            })
+          }
+        </tbody>
       </table>
-      <p className="total">Total: 2</p>
+      <Total value={tableData.length}/>
     </React.Fragment>
   );
 };
 
 Table.propTypes = {
-  data: PropTypes.shape.any,
+  tableData: PropTypes.array.isRequired,
 };
 
 export default Table;
