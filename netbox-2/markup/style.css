@@ -46,11 +46,11 @@ body {
 }
 
 .table__header--sort-asc::after {
-  content: "↑";
+  content: "↓";
 }
 
 .table__header--sort-desc::after {
-  content: "↓";
+  content: "↑";
 }
 
 .table__header,

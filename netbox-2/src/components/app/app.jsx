@@ -1,13 +1,13 @@
 import React from "react";
 import {useSelector} from "react-redux";
 
-import {getTableData} from "../../reducer/selectors.js";
+import {getSortedTableData} from "../../reducer/selectors.js";
 
 import Table from "../table/table.jsx";
 import Additions from "../additions/additions.jsx";
 
 const App = () => {
-  const data = useSelector((state) => getTableData(state));
+  const data = useSelector((state) => getSortedTableData(state));
 
   return (
     <React.Fragment>
