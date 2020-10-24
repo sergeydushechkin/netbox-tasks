@@ -1,4 +1,4 @@
-import {extend} from "../utils.js";
+import {extend, createNewTableItem} from "../utils.js";
 import {SortTypes} from "../const.js";
 
 import JsonData from "../mock/data.js";
@@ -27,13 +27,26 @@ const ActionCreator = {
   changeAddingMode: (mode) => ({
     type: ActionType.CHANGE_ADDING_MODE,
     payload: mode
-  }),
+  })
+};
+
+const Operation = {
+  changeData: (newData) => (dispatch, getState, api) => {
+    const stateData = getState().tableData;
+    const index = stateData.findIndex((it) => it[0].value === newData.id);
+    const newStateData = [].concat([...stateData.slice(0, index)], [createNewTableItem(newData)], [...stateData.slice(index + 1, stateData.length)]);
+    dispatch(ActionCreator.loadData(newStateData));
+  },
+  removeData: (id) => (dispatch, getState, api) => {
+    const newStateData = getState().tableData.filter((it) => it[0].value !== id);
+    dispatch(ActionCreator.loadData(newStateData));
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_DATA:
-      return extend(state, {data: action.payload});
+      return extend(state, {tableData: action.payload});
     case ActionType.CHANGE_SORTING:
       return extend(state, {sortType: action.payload});
     case ActionType.CHANGE_ADDING_MODE:
@@ -43,4 +56,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreator, ActionType};
+export {reducer, ActionCreator, ActionType, Operation};

@@ -58,4 +58,14 @@ const sortTableData = (tableData, sortType) => {
   return sortedTableData;
 };
 
-export {extend, sortTableData};
+const createNewTableItem = ({id, name, age, phone, email}) => {
+  return [
+    {field: `ID`, value: id, type: `integer`},
+    {field: `Name`, value: name, type: `string`},
+    {field: `Age`, value: age, type: `integer`},
+    {field: `Phone`, value: phone, type: `string`},
+    {field: `E-mail`, value: email, type: `string`},
+  ];
+};
+
+export {extend, sortTableData, createNewTableItem};
