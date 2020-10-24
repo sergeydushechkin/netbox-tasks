@@ -4,6 +4,21 @@ const extend = (firstObj, secondObj) => {
   return Object.assign({}, firstObj, secondObj);
 };
 
+const sortStringsByIndex = (first, second, index) => {
+  const a = first[index].value.toLowerCase();
+  const b = second[index].value.toLowerCase();
+
+  if (a > b) {
+    return 1;
+  }
+
+  if (a < b) {
+    return -1;
+  }
+
+  return 0;
+};
+
 const sortTableData = (tableData, sortType) => {
   let sortedTableData = [];
 
@@ -15,10 +30,10 @@ const sortTableData = (tableData, sortType) => {
       sortedTableData = tableData.slice().sort((a, b) => b[0].value - a[0].value);
       break;
     case SortTypes.NAME_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => a[1].value - b[1].value);
+      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(a, b, 1));
       break;
     case SortTypes.NAME_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => b[1].value - a[1].value);
+      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 1));
       break;
     case SortTypes.AGE_ASC:
       sortedTableData = tableData.slice().sort((a, b) => a[2].value - b[2].value);
@@ -27,16 +42,16 @@ const sortTableData = (tableData, sortType) => {
       sortedTableData = tableData.slice().sort((a, b) => b[2].value - a[2].value);
       break;
     case SortTypes.PHONE_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => a[3].value - b[3].value);
+      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(a, b, 3));
       break;
     case SortTypes.PHONE_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => b[3].value - a[3].value);
+      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 3));
       break;
     case SortTypes.EMAIL_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => a[4].value - b[4].value);
+      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(a, b, 4));
       break;
     case SortTypes.EMAIL_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => b[4].value - a[4].value);
+      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 4));
       break;
   }
 
