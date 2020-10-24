@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TableActiveRow = (props) => {
-  const {rowData, onCancelClick, onSave} = props;
+  const {rowData, onDeleteClick, onSave} = props;
   const nameRef = React.useRef();
   const ageRef = React.useRef();
   const telRef = React.useRef();
@@ -10,9 +10,10 @@ const TableActiveRow = (props) => {
 
   const handleSaveClick = () => {
     const formData = {
+      id: rowData[0].value,
       name: nameRef.current.value,
       age: ageRef.current.value,
-      tel: telRef.current.value,
+      phone: telRef.current.value,
       email: emailRef.current.value
     };
 
@@ -36,7 +37,7 @@ const TableActiveRow = (props) => {
       </td>
       <td className="table__cell buttons">
         <button onClick={() => handleSaveClick()} className="buttons__save">Сохранить</button>
-        <button onClick={() => onCancelClick()} className="buttons__delete">Удалить</button>
+        <button onClick={() => onDeleteClick(rowData[0].value)} className="buttons__delete">Удалить</button>
       </td>
     </tr>
   );
@@ -45,7 +46,7 @@ const TableActiveRow = (props) => {
 
 TableActiveRow.propTypes = {
   rowData: PropTypes.array.isRequired,
-  onCancelClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
 };
 

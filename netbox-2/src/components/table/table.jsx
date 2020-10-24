@@ -1,16 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {useSelector, useDispatch} from "react-redux";
+
+import {Operation} from "../../reducer/reducer.js";
+import {getSortedTableData} from "../../reducer/selectors.js";
 
 import TableHeader from "../table-header/table-header.jsx";
 import TableRow from "../table-row/table-row.jsx";
 import TableActiveRow from "../table-active-row/table-active-row.jsx";
 
-const Table = (props) => {
-  const {tableData} = props;
+
+const Table = () => {
   const [activeRowId, setActiveRowId] = React.useState(2);
+  const tableData = useSelector((state) => getSortedTableData(state));
+
+  const dispatch = useDispatch();
 
   const handleSave = (formData) => {
-    console.log(formData);
+    dispatch(Operation.changeData(formData));
     setActiveRowId(null);
   };
 
@@ -23,7 +29,7 @@ const Table = (props) => {
   };
 
   const handleDelete = (id) => {
-    console.log(`${id} deleted`);
+    dispatch(Operation.removeData(id));
   };
 
   return (
@@ -34,17 +40,13 @@ const Table = (props) => {
           tableData.map((item) => {
             const id = item[0].value;
             return id === activeRowId
-              ? <TableActiveRow key={id} rowData={item} onCancelClick={handleCancel} onSave={handleSave}/>
+              ? <TableActiveRow key={id} rowData={item} onDeleteClick={handleDelete} onSave={handleSave}/>
               : <TableRow key={id} rowData={item} onEditClick={handleEdit} onDeleteClick={handleDelete}/>;
           })
         }
       </tbody>
     </table>
   );
-};
-
-Table.propTypes = {
-  tableData: PropTypes.array.isRequired,
 };
 
 export default Table;

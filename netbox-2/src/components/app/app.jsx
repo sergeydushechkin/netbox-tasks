@@ -11,7 +11,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Table tableData={data}/>
+      <Table />
       <Additions tableData={data} />
     </React.Fragment>
   );
