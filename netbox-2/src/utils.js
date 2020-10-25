@@ -68,4 +68,14 @@ const createNewTableItem = ({id, name, age, phone, email}) => {
   ];
 };
 
-export {extend, sortTableData, createNewTableItem};
+const findMaxId = (tableData) => {
+  let max = 0;
+  for (let item of tableData) {
+    if (max < item[0].value) {
+      max = item[0].value;
+    }
+  }
+  return max;
+};
+
+export {extend, sortTableData, createNewTableItem, findMaxId};

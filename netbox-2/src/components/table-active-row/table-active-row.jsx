@@ -27,7 +27,7 @@ const TableActiveRow = (props) => {
         <input ref={nameRef} className="table_input" type="text" name="name" required size="15" defaultValue={rowData[1].value} />
       </td>
       <td className="table__cell">
-        <input ref={ageRef} className="table_input" type="text" name="age" required size="5" defaultValue={rowData[2].value} />
+        <input ref={ageRef} className="table_input" type="number" name="age" min="1" max="120" required defaultValue={rowData[2].value} />
       </td>
       <td className="table__cell">
         <input ref={telRef} className="table_input" type="tel" name="telephone" required size="10" defaultValue={rowData[3].value} />

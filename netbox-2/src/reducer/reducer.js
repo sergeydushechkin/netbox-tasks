@@ -1,4 +1,4 @@
-import {extend, createNewTableItem} from "../utils.js";
+import {extend, createNewTableItem, findMaxId} from "../utils.js";
 import {SortTypes} from "../const.js";
 
 import JsonData from "../mock/data.js";
@@ -35,6 +35,13 @@ const Operation = {
     const stateData = getState().tableData;
     const index = stateData.findIndex((it) => it[0].value === newData.id);
     const newStateData = [].concat([...stateData.slice(0, index)], [createNewTableItem(newData)], [...stateData.slice(index + 1, stateData.length)]);
+    dispatch(ActionCreator.loadData(newStateData));
+  },
+  addData: (newData) => (dispatch, getState, api) => {
+    const stateData = getState().tableData;
+    newData.id = findMaxId(stateData) + 1;
+    const newStateData = [].concat([...stateData.slice()], [createNewTableItem(newData)]);
+    dispatch(ActionCreator.changeAddingMode(false));
     dispatch(ActionCreator.loadData(newStateData));
   },
   removeData: (id) => (dispatch, getState, api) => {

@@ -1,15 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
 
-const Total = (props) => {
-  const {value} = props;
+import {getTableData} from "../../reducer/selectors.js";
+
+const Total = () => {
+  const value = useSelector((state) => getTableData(state));
+
   return (
-    <p className="additions__total">Total: {value}</p>
+    <p className="additions__total">Total: {value.length}</p>
   );
-};
-
-Total.propTypes = {
-  value: PropTypes.number.isRequired,
 };
 
 export default Total;
