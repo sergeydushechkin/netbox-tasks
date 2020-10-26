@@ -17,19 +17,19 @@ const Table = () => {
 
   const dispatch = useDispatch();
 
-  const handleCancel = () => {
+  const handleCancel = React.useCallback(() => {
     dispatch(ActionCreator.changeAddingMode(false));
-  };
+  }, [dispatch]);
 
-  const handleEdit = (id) => {
+  const handleEdit = React.useCallback((id) => {
     setActiveRowId(id);
-  };
+  }, []);
 
-  const handleDelete = ((id) => {
+  const handleDelete = React.useCallback(((id) => {
     dispatch(Operation.removeData(id));
-  });
+  }), [dispatch]);
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = React.useCallback((evt) => {
     evt.preventDefault();
     const data = parseFormData(new FormData(formRef.current));
 
@@ -39,7 +39,7 @@ const Table = () => {
       dispatch(Operation.changeData(data));
       setActiveRowId(null);
     }
-  };
+  }, [dispatch, addingMode]);
 
   React.useEffect(() => {
     if (addingMode && activeRowId) {

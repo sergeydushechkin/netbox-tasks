@@ -1,15 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 
 import {getAddingMode} from "../../reducer/selectors.js";
 
 const NewButton = () => {
-  const buttonRef = useRef();
+  const buttonRef = React.useRef();
   const addingMode = useSelector((state) => getAddingMode(state));
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (addingMode) {
       buttonRef.current.setAttribute(`disabled`, `disabled`);
     } else {

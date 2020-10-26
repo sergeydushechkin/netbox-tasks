@@ -23,6 +23,11 @@ const TableHeader = (props) => {
   const sortType = useSelector((state) => getSortType(state));
   const {} = props;
 
+  const handleHeaderClick = React.useCallback((evt, sortBy) => {
+    evt.preventDefault();
+    dispatch(ActionCreator.changeSorting(sortBy));
+  }, [dispatch]);
+
   return (
     <tr className="table__row">
       {
@@ -40,10 +45,7 @@ const TableHeader = (props) => {
 
           return (
             <th key={title} className={`table__header${headerClass}`}>
-              <a onClick={(evt) => {
-                evt.preventDefault();
-                dispatch(ActionCreator.changeSorting(sortBy));
-              }} href="">{title}</a>
+              <a onClick={(evt) => handleHeaderClick(evt, sortBy)} href="">{title}</a>
             </th>
           );
         })
@@ -51,11 +53,6 @@ const TableHeader = (props) => {
       <th className="table__header">actions</th>
     </tr>
   );
-};
-
-
-TableHeader.propTypes = {
-  // data: PropTypes.array.isRequired,
 };
 
 export default TableHeader;
