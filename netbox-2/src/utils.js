@@ -78,4 +78,14 @@ const findMaxId = (tableData) => {
   return max;
 };
 
-export {extend, sortTableData, createNewTableItem, findMaxId};
+const parseFormData = (formData) => {
+  return {
+    id: Number(formData.get(`id`)),
+    name: formData.get(`name`),
+    age: Number(formData.get(`age`)),
+    phone: formData.get(`phone`),
+    email: formData.get(`email`),
+  };
+};
+
+export {extend, sortTableData, createNewTableItem, findMaxId, parseFormData};

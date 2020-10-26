@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 
 import {ActionCreator, Operation} from "../../reducer/reducer.js";
 import {getSortedTableData, getAddingMode} from "../../reducer/selectors.js";
-import {createNewTableItem} from "../../utils.js";
+import {createNewTableItem, parseFormData} from "../../utils.js";
 
 import TableHeader from "../table-header/table-header.jsx";
 import TableRow from "../table-row/table-row.jsx";
@@ -13,17 +13,9 @@ const Table = () => {
   const [activeRowId, setActiveRowId] = React.useState(null);
   const tableData = useSelector((state) => getSortedTableData(state));
   const addingMode = useSelector((state) => getAddingMode(state));
+  const formRef = React.useRef();
 
   const dispatch = useDispatch();
-
-  const handleSave = (formData) => {
-    dispatch(Operation.changeData(formData));
-    setActiveRowId(null);
-  };
-
-  const handleSaveNew = (formData) => {
-    dispatch(Operation.addData(formData));
-  };
 
   const handleCancel = () => {
     dispatch(ActionCreator.changeAddingMode(false));
@@ -33,33 +25,47 @@ const Table = () => {
     setActiveRowId(id);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = ((id) => {
     dispatch(Operation.removeData(id));
+  });
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const data = parseFormData(new FormData(formRef.current));
+
+    if (addingMode) {
+      dispatch(Operation.addData(data));
+    } else {
+      dispatch(Operation.changeData(data));
+      setActiveRowId(null);
+    }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (addingMode && activeRowId) {
       setActiveRowId(null);
     }
   }, [addingMode, activeRowId]);
 
   return (
-    <table className="table">
-      <tbody>
-        <TableHeader />
-        {
-          tableData.map((item) => {
-            const id = item[0].value;
-            return id === activeRowId
-              ? <TableActiveRow key={id} rowData={item} onDeleteClick={handleDelete} onSave={handleSave}/>
-              : <TableRow key={id} rowData={item} onEditClick={handleEdit} onDeleteClick={handleDelete}/>;
-          })
-        }
-        {
-          addingMode && <TableActiveRow rowData={createNewTableItem({id: ``, name: ``, age: ``, phone: ``, email: ``})} onDeleteClick={handleCancel} onSave={handleSaveNew}/>
-        }
-      </tbody>
-    </table>
+    <form onSubmit={handleSubmit} method="post" action="#" ref={formRef}>
+      <table className="table">
+        <tbody>
+          <TableHeader />
+          {
+            tableData.map((item) => {
+              const id = item[0].value;
+              return id === activeRowId
+                ? <TableActiveRow key={id} rowData={item} onDeleteClick={handleDelete}/>
+                : <TableRow key={id} rowData={item} onEditClick={handleEdit} onDeleteClick={handleDelete}/>;
+            })
+          }
+          {
+            addingMode && <TableActiveRow rowData={createNewTableItem({id: ``, name: ``, age: ``, phone: ``, email: ``})} onDeleteClick={handleCancel}/>
+          }
+        </tbody>
+      </table>
+    </form>
   );
 };
 
