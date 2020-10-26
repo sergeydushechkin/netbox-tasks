@@ -53,6 +53,9 @@ const sortTableData = (tableData, sortType) => {
     case SortTypes.EMAIL_DESC:
       sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 4));
       break;
+    default:
+      sortedTableData = tableData;
+      break;
   }
 
   return sortedTableData;

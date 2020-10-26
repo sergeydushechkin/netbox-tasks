@@ -1,11 +1,12 @@
 import {extend, createNewTableItem, findMaxId} from "../utils.js";
-import {SortTypes} from "../const.js";
+// import {SortTypes} from "../const.js";
 
-import JsonData from "../mock/data.js";
+// import JsonData from "../mock/data.js";
 
 const initialState = {
-  tableData: JSON.parse(JsonData),
-  sortType: SortTypes.AGE_ASC,
+  // tableData: JSON.parse(JsonData),
+  tableData: [],
+  sortType: null,
   isAddingMode: false,
 };
 
@@ -31,6 +32,12 @@ const ActionCreator = {
 };
 
 const Operation = {
+  getData: () => (dispatch, getState, api) => {
+    return api.get()
+      .then((response) => {
+        dispatch(ActionCreator.loadData(response.data));
+      });
+  },
   changeData: (newData) => (dispatch, getState, api) => {
     const stateData = getState().tableData;
     const index = stateData.findIndex((it) => it[0].value === newData.id);
