@@ -13,8 +13,8 @@ const TableRow = (props) => {
       <td className="table__cell">{rowData[3].value}</td>
       <td className="table__cell">{rowData[4].value}</td>
       <td className="table__cell buttons">
-        <button onClick={() => onEditClick(id)} className="buttons__edit">Редактировать</button>
-        <button onClick={() => onDeleteClick(id)} className="buttons__delete">Удалить</button>
+        <button type="button" onClick={() => onEditClick(id)} className="buttons__edit">Редактировать</button>
+        <button type="button" onClick={() => onDeleteClick(id)} className="buttons__delete">Удалить</button>
       </td>
     </tr>
   );

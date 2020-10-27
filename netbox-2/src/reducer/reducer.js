@@ -1,3 +1,4 @@
+import {HttpCodes} from "../const.js";
 import {extend, createNewTableItem, findMaxId} from "../utils.js";
 // import {SortTypes} from "../const.js";
 
@@ -17,9 +18,9 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  loadData: (tableData) => ({
+  loadData: (loadedData) => ({
     type: ActionType.LOAD_DATA,
-    payload: tableData
+    payload: loadedData
   }),
   changeSorting: (type) => ({
     type: ActionType.CHANGE_SORTING,
@@ -39,21 +40,40 @@ const Operation = {
       });
   },
   changeData: (newData) => (dispatch, getState, api) => {
-    const stateData = getState().tableData;
-    const index = stateData.findIndex((it) => it[0].value === newData.id);
-    const newStateData = [].concat([...stateData.slice(0, index)], [createNewTableItem(newData)], [...stateData.slice(index + 1, stateData.length)]);
-    dispatch(ActionCreator.loadData(newStateData));
+    const {id, name, age, phone, email} = newData;
+    const request = `method=update&id=${id}&name=${name}&age=${age}&phone=${phone}&email=${email}`;
+    return api.post(``, request)
+      .then((response) => {
+        if (response.status === HttpCodes.OK) {
+          const stateData = getState().tableData;
+          const index = stateData.findIndex((it) => it[0].value === newData.id);
+          const newStateData = [].concat([...stateData.slice(0, index)], [createNewTableItem(newData)], [...stateData.slice(index + 1, stateData.length)]);
+          dispatch(ActionCreator.loadData(newStateData));
+        }
+      });
   },
   addData: (newData) => (dispatch, getState, api) => {
-    const stateData = getState().tableData;
-    newData.id = findMaxId(stateData) + 1;
-    const newStateData = [].concat([...stateData.slice()], [createNewTableItem(newData)]);
-    dispatch(ActionCreator.changeAddingMode(false));
-    dispatch(ActionCreator.loadData(newStateData));
+    const {name, age, phone, email} = newData;
+    const request = `method=add&name=${name}&age=${age}&phone=${phone}&email=${email}`;
+    return api.post(``, request)
+      .then((response) => {
+        if (response.status === HttpCodes.OK) {
+          const stateData = getState().tableData;
+          newData.id = findMaxId(stateData) + 1;
+          const newStateData = [].concat([...stateData.slice()], [createNewTableItem(newData)]);
+          dispatch(ActionCreator.changeAddingMode(false));
+          dispatch(ActionCreator.loadData(newStateData));
+        }
+      });
   },
   removeData: (id) => (dispatch, getState, api) => {
-    const newStateData = getState().tableData.filter((it) => it[0].value !== id);
-    dispatch(ActionCreator.loadData(newStateData));
+    return api.post(``, `method=delete&id=${id}`)
+      .then((response) => {
+        if (response.status === HttpCodes.OK) {
+          const newStateData = getState().tableData.filter((it) => it[0].value !== id);
+          dispatch(ActionCreator.loadData(newStateData));
+        }
+      });
   },
 };
 

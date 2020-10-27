@@ -12,4 +12,8 @@ const SortTypes = {
   EMAIL_DESC: `emailDesc`,
 };
 
-export {SortTypes};
+const HttpCodes = {
+  OK: 200,
+};
+
+export {SortTypes, HttpCodes};

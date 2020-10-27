@@ -7,7 +7,7 @@ const TableActiveRow = (props) => {
   return (
     <tr className="table__row table__row--active">
       <td className="table__cell">
-        <input className="table_input" type="text" name="id" readOnly defaultValue={rowData[0].value} />
+        <input style={{border: `none`, outline: `none`}} className="table_input" type="text" name="id" readOnly defaultValue={rowData[0].value} />
       </td>
       <td className="table__cell">
         <input className="table_input" type="text" name="name" required size="15" defaultValue={rowData[1].value} />
@@ -23,7 +23,7 @@ const TableActiveRow = (props) => {
       </td>
       <td className="table__cell buttons">
         <button type="submit" className="buttons__save">Сохранить</button>
-        <button onClick={() => onDeleteClick(rowData[0].value)} className="buttons__delete">Удалить</button>
+        <button type="button" onClick={() => onDeleteClick(rowData[0].value)} className="buttons__delete">Удалить</button>
       </td>
     </tr>
   );

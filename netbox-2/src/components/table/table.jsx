@@ -36,8 +36,10 @@ const Table = () => {
     if (addingMode) {
       dispatch(Operation.addData(data));
     } else {
-      dispatch(Operation.changeData(data));
+      dispatch(Operation.changeData(data))
+        .then(() => {
       setActiveRowId(null);
+        });
     }
   }, [dispatch, addingMode]);
 
