@@ -9,7 +9,7 @@ import {createAPI} from "./api.js";
 
 import App from "./components/app/app.jsx";
 
-const api = createAPI((err) => console.log(err));
+const api = createAPI();
 
 const store = createStore(
     reducer,
