@@ -1,3 +1,4 @@
+import createTableData from "../adapters/table-data.js";
 import {HttpCodes} from "../const.js";
 import {extend, createNewTableItem, findMaxId} from "../utils.js";
 // import {SortTypes} from "../const.js";
