@@ -4,9 +4,9 @@ const extend = (firstObj, secondObj) => {
   return Object.assign({}, firstObj, secondObj);
 };
 
-const sortStringsByIndex = (first, second, index) => {
-  const a = first[index].value.toLowerCase();
-  const b = second[index].value.toLowerCase();
+const sortStrings = (first, second) => {
+  const a = first.toLowerCase();
+  const b = second.toLowerCase();
 
   if (a > b) {
     return 1;
@@ -24,34 +24,34 @@ const sortTableData = (tableData, sortType) => {
 
   switch (sortType) {
     case SortTypes.ID_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => a[0].value - b[0].value);
+      sortedTableData = tableData.slice().sort((a, b) => a.id - b.id);
       break;
     case SortTypes.ID_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => b[0].value - a[0].value);
+      sortedTableData = tableData.slice().sort((a, b) => b.id - a.id);
       break;
     case SortTypes.NAME_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(a, b, 1));
+      sortedTableData = tableData.slice().sort((a, b) => sortStrings(a.name, b.name));
       break;
     case SortTypes.NAME_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 1));
+      sortedTableData = tableData.slice().sort((a, b) => sortStrings(b.name, a.name));
       break;
     case SortTypes.AGE_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => a[2].value - b[2].value);
+      sortedTableData = tableData.slice().sort((a, b) => a.age - b.age);
       break;
     case SortTypes.AGE_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => b[2].value - a[2].value);
+      sortedTableData = tableData.slice().sort((a, b) => b.age - a.age);
       break;
     case SortTypes.PHONE_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(a, b, 3));
+      sortedTableData = tableData.slice().sort((a, b) => sortStrings(a.phone, b.phone));
       break;
     case SortTypes.PHONE_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 3));
+      sortedTableData = tableData.slice().sort((a, b) => sortStrings(b.phone, a.phone));
       break;
     case SortTypes.EMAIL_ASC:
-      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(a, b, 4));
+      sortedTableData = tableData.slice().sort((a, b) => sortStrings(a.email, b.email));
       break;
     case SortTypes.EMAIL_DESC:
-      sortedTableData = tableData.slice().sort((a, b) => sortStringsByIndex(b, a, 4));
+      sortedTableData = tableData.slice().sort((a, b) => sortStrings(b.email, a.email));
       break;
     default:
       sortedTableData = tableData;
@@ -74,8 +74,8 @@ const createNewTableItem = ({id, name, age, phone, email}) => {
 const findMaxId = (tableData) => {
   let max = 0;
   for (let item of tableData) {
-    if (max < item[0].value) {
-      max = item[0].value;
+    if (max < item.id) {
+      max = item.id;
     }
   }
   return max;
