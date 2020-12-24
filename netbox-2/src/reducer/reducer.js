@@ -1,5 +1,6 @@
+import createTableData from "../adapters/table-data.js";
 import {HttpCodes} from "../const.js";
-import {extend, createNewTableItem, findMaxId} from "../utils.js";
+import {extend, findMaxId} from "../utils.js";
 // import {SortTypes} from "../const.js";
 
 // import JsonData from "../mock/data.js";
@@ -36,7 +37,7 @@ const Operation = {
   getData: () => (dispatch, getState, api) => {
     return api.get()
       .then((response) => {
-        dispatch(ActionCreator.loadData(response.data));
+        dispatch(ActionCreator.loadData(response.data.map((data) => createTableData(data))));
       });
   },
   changeData: (newData) => (dispatch, getState, api) => {
@@ -46,8 +47,8 @@ const Operation = {
       .then((response) => {
         if (response.status === HttpCodes.OK) {
           const stateData = getState().tableData;
-          const index = stateData.findIndex((it) => it[0].value === newData.id);
-          const newStateData = [].concat([...stateData.slice(0, index)], [createNewTableItem(newData)], [...stateData.slice(index + 1, stateData.length)]);
+          const index = stateData.findIndex((it) => it.id === newData.id);
+          const newStateData = [].concat([...stateData.slice(0, index)], newData, [...stateData.slice(index + 1, stateData.length)]);
           dispatch(ActionCreator.loadData(newStateData));
         }
       });
@@ -60,7 +61,7 @@ const Operation = {
         if (response.status === HttpCodes.OK) {
           const stateData = getState().tableData;
           newData.id = findMaxId(stateData) + 1;
-          const newStateData = [].concat([...stateData.slice()], [createNewTableItem(newData)]);
+          const newStateData = [].concat([...stateData.slice()], newData);
           dispatch(ActionCreator.changeAddingMode(false));
           dispatch(ActionCreator.loadData(newStateData));
         }
@@ -70,7 +71,7 @@ const Operation = {
     return api.post(``, `method=delete&id=${id}`)
       .then((response) => {
         if (response.status === HttpCodes.OK) {
-          const newStateData = getState().tableData.filter((it) => it[0].value !== id);
+          const newStateData = getState().tableData.filter((it) => it.id !== id);
           dispatch(ActionCreator.loadData(newStateData));
         }
       });

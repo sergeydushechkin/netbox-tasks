@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 
 import {ActionCreator, Operation} from "../../reducer/reducer.js";
 import {getSortedTableData, getAddingMode} from "../../reducer/selectors.js";
-import {createNewTableItem, parseFormData} from "../../utils.js";
+import {parseFormData} from "../../utils.js";
 
 import TableHeader from "../table-header/table-header.jsx";
 import TableRow from "../table-row/table-row.jsx";
@@ -90,14 +90,14 @@ const Table = () => {
           <TableHeader />
           {
             tableData.map((item) => {
-              const id = item[0].value;
+              const id = item.id;
               return id === activeRowId
                 ? <TableActiveRow key={id} rowData={item} onDeleteClick={handleDelete}/>
                 : <TableRow key={id} rowData={item} onEditClick={handleEdit} onDeleteClick={handleDelete}/>;
             })
           }
           {
-            addingMode && <TableActiveRow rowData={createNewTableItem({id: ``, name: ``, age: ``, phone: ``, email: ``})} onDeleteClick={handleCancel}/>
+            addingMode && <TableActiveRow rowData={{id: ``, name: `asdas`, age: ``, phone: ``, email: ``}} onDeleteClick={handleCancel}/>
           }
         </tbody>
       </table>
